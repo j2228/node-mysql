@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// router
+// router これでindex.jsで処理させられる
 app.use('/', require('./routes'));
 
 // catch 404 and forward to error handler
