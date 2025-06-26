@@ -5,17 +5,18 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <!--"/"とすることで-->
-    <form action="/" method="post">
-      <label>タスクの追加</label>
-      <input requierd type="text" name="add" placeholder="何をする?"/>
-      <input type="submit" value="追加"/>
-    </form>
-    <ul>
-      <% for(let todo of todos){ %>
-        <li><span><%= todo %></span></li>
-      <% } %>
-    </ul>
+  <form action="/" method="post">
+    <label>タスクの追加</label>
+    <input required type="text" name="add" placeholder="何をする?"/>
+    <input type="submit" value="追加"/>
+  </form>
+  <ul>
+    <% 
+      const list = Array.isArray(todos) ? todos : []; 
+      for(let todo of list){ 
+    %>
+      <li><span><%= todo.content %></span></li>
+    <% } %>
+  </ul>
   </body>
 </html>
-
