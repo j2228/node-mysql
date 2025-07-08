@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
+const knex = require("../db/knex");
 
 router.get('/', function (req, res, next) {
-  res.render('signin', {
-    title: 'Sign in',
+  res.render("signin", {
+    title: "Sign in",
   });
 });
 
@@ -24,6 +25,7 @@ router.post('/', function (req, res, next) {
           errorMessage: ["ユーザが見つかりません"],
         });
       } else {
+        req.session.userid = results[0].id;
         res.redirect('/');
       }
     })
@@ -32,8 +34,8 @@ router.post('/', function (req, res, next) {
       res.render("signin", {
         title: "Sign in",
         errorMessage: [err.sqlMessage],
-        isAuth: false,
       });
     });
 });
+
 module.exports = router;
