@@ -5,18 +5,23 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-  <form action="/" method="post">
-    <label>タスクの追加</label>
-    <input required type="text" name="add" placeholder="何をする?"/>
-    <input type="submit" value="追加"/>
-  </form>
-  <ul>
-    <% 
-      const list = Array.isArray(todos) ? todos : []; 
-      for(let todo of list){ 
-    %>
-      <li><span><%= todo.content %></span></li>
-    <% } %>
-  </ul>
+  <% if(isAuth) { %>
+    <form action="/" method="post">
+      <label>タスクの追加</label>
+      <input required type="text" name="add" placeholder="何をする?"/>
+      <input type="submit" value="追加"/>
+    </form>
+    <ul>
+      <% 
+        const list = Array.isArray(todos) ? todos : []; 
+        for(let todo of list){ 
+      %>
+        <li><span><%= todo.content %></span></li>
+      <% } %>
+    </ul>
+  <% } else { %>
+    <h1>Welcome to the TodoApp</h1>
+    <a href="/signup">Sign up now!</a>
+  <% } %>
   </body>
 </html>

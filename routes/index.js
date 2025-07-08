@@ -7,7 +7,7 @@ router.get('/', function (req, res, next) {
   console.log('ルートにアクセス'); // 追加
   const userId = req.session.userid;
   const isAuth = Boolean(userId);
-  console.log(`isAuth: ${isAuth}`);
+  // console.log(`isAuth: ${isAuth}`);
 
   //req.session.userid はサインイン時にデータが入るため、未サインインの間はundefinedとなり、Boolean(userId) はfalseを返します。
   knex("tasks")
@@ -17,6 +17,7 @@ router.get('/', function (req, res, next) {
       res.render('index', {
         title: 'ToDo App',
         todos: results,
+        isAuth:isAuth,
       });
     })
     .catch(function (err) {
@@ -28,6 +29,8 @@ router.get('/', function (req, res, next) {
 });
 
 router.post('/', function (req, res, next) {
+  const userId= req.session.userid;
+  const isAuth = Boolean(userId);
   const todo = req.body.add;
   knex("tasks")
     .insert({user_id: 1, content: todo})
@@ -38,11 +41,12 @@ router.post('/', function (req, res, next) {
       console.error(err);
       res.render('index', {
         title: 'ToDo App',
+        isAuth: isAuth,
       });
     });
 });
 
 router.use('/signup', require('./signup'));
 router.use('/signin', require('./signin'));
-// router.use('/logout', require('./logout'));
+router.use('/logout', require('./logout'));
 module.exports = router;
