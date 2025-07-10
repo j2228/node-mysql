@@ -30,7 +30,7 @@ router.post('/', function (req, res, next) {
         })
       } else if (password === repassword) {
         const hashedPassword = await bcrypt.hash(password, 10);
-        console.log(hashedPassword);
+        // console.log(hashedPassword);
         knex("users")
           .insert({name: username, password: hashedPassword})
           .then(function () {
