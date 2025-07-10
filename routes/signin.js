@@ -3,7 +3,10 @@ const router = express.Router();
 const knex = require("../db/knex");
 
 router.get('/', function (req, res, next) {
+  const userId = req.session.userid;
+  const isAuth = Boolean(userId);
   res.render("signin", {
+    isAuth: isAuth,
     title: "Sign in",
   });
 });
@@ -11,7 +14,8 @@ router.get('/', function (req, res, next) {
 router.post('/', function (req, res, next) {
   const username = req.body.username;
   const password = req.body.password;
-
+  const userId = req.session.userid;
+  const isAuth = Boolean(userId);
   knex("users")
     .where({
       name: username,
@@ -22,6 +26,7 @@ router.post('/', function (req, res, next) {
       if (results.length === 0) {
         res.render("signin", {
           title: "Sign in",
+          isAuth: isAuth,
           errorMessage: ["ユーザが見つかりません"],
         });
       } else {
@@ -33,6 +38,7 @@ router.post('/', function (req, res, next) {
       console.error(err);
       res.render("signin", {
         title: "Sign in",
+        isAuth: isAuth,
         errorMessage: [err.sqlMessage],
       });
     });
