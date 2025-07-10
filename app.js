@@ -28,8 +28,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// router これでindex.jsで処理させられる
-app.use('/', require('./routes/index'));
+// authorization
+require("./config/passport")(app);
+
+// router
+app.use('/', require('./routes'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
