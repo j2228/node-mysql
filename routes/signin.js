@@ -37,7 +37,7 @@ router.post('/', function (req, res, next) {
           title: "Sign in",
           errorMessage: ["ユーザが見つかりません"],
           isAuth: isAuth,
-        });
+        }); 
       }
     })
     .catch(function (err) {
