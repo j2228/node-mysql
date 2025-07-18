@@ -209,6 +209,7 @@ router.get('/', async (req, res, next) => {
       isAuth,
       users: allUsers,
       user: req.user, // 管理者判定のためにログインユーザー情報を渡す
+      currentUser: req.user
     });
   } catch(err) {
     console.error(err);
@@ -217,7 +218,7 @@ router.get('/', async (req, res, next) => {
 });
 
 // --- ユーザー削除処理（管理者専用） ---
-router.post('/users/:id/delete', async (req, res, next) => {
+router.post('/:id/delete', async (req, res, next) => {
   // ログインしているか、かつ管理者かをチェック
   if (!req.isAuthenticated() || !req.user.isAdmin) {
     return res.status(403).send('Forbidden: Admins only');
