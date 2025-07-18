@@ -75,8 +75,40 @@ router.post('/', async function (req, res, next) {
     });
   }
 });
+
+router.post('/delete/:id', async (req, res, next) => {
+  // Check if user is logged in
+  if (!req.isAuthenticated()) {
+    return res.redirect('/accounts/signin');
+  }
+
+  const postId = req.params.id;
+  const userId = req.user.id;
+
+  try {
+    // To be safe, ensure the post belongs to the user trying to delete it
+    const post = await knex('microposts').where({ id: postId, user_id: userId }).first();
+
+    if (post) {
+      // If the post exists and belongs to the user, delete it
+      await knex('microposts').where({ id: postId }).del();
+    } else {
+      // If no such post exists, or it doesn't belong to the user, do nothing or show an error
+      // For simplicity, we'll just redirect.
+      console.log(`Unauthorized delete attempt or post not found. UserID: ${userId}, PostID: ${postId}`);
+    }
+
+    res.redirect('/');
+  } catch (err) {
+    console.error(err);
+    // You might want to handle errors more gracefully, e.g., with a flash message
+    res.redirect('/');
+  }
+});
+
 router.use('/accounts/signup', require('./accounts/signup'));
 router.use('/accounts/signin', require('./accounts/signin'));
+router.use('/accounts/edit', require('./accounts/edit'));
 router.use('/logout', require('./logout'));
 router.use('/users', require('./users'));
 
