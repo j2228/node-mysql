@@ -5,7 +5,7 @@ module.exports = {
   development: {
     client: "mysql",
     connection: {
-      database: "todo_app",
+      database: "Micropost",
       user: "root",
       password: "password",
     },
@@ -18,7 +18,7 @@ module.exports = {
   staging: {
     client: "mysql",
     connection: {
-      database: "todo_app",
+      database: "Micropost",
       user: "root",
       password: "password",
     },
@@ -31,7 +31,7 @@ module.exports = {
   production: {
     client: "mysql",
     connection: {
-      database: "todo_app",
+      database: "Micropost",
       user: "root",
       password: "password",
     },

@@ -4,7 +4,7 @@ const passport = require("passport");
 
 router.get('/', function (req, res, next) {
   const isAuth = req.isAuthenticated();
-  res.render("signin", {
+  res.render("accounts/signin", {
     title: "Sign in",
     isAuth: isAuth,
   });
@@ -12,8 +12,8 @@ router.get('/', function (req, res, next) {
 
 router.post('/', passport.authenticate('local', {
     successRedirect: '/',
-    failureRedirect: '/signin',
-    failureFlash: true,
+    failureRedirect: '/accounts/signin',
+    // failureFlash: true,
   }
 ));
 

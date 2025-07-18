@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= title %></title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:700&display=swap" rel="stylesheet">
+  
+  <style>
+    body {
+      background: linear-gradient(135deg, #e0ffe0 0%, #b3e6ff 100%);
+      font-family: 'Montserrat', 'Noto Sans JP', 'Meiryo', sans-serif;
+      color: #2e4d2c;
+      min-height: 100vh;
+      background-image: url('https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=1200&q=80');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+    }
+    .nature-card {
+      background: rgba(255,255,255,0.85);
+      border-radius: 18px;
+      box-shadow: 0 4px 24px #b3e6ff99;
+      padding: 2em 1.5em;
+      margin-bottom: 2em;
+      border: 2px solid #b3e6ff;
+    }
+    .nature-form label {
+      font-weight: bold;
+      color: #4caf50;
+    }
+    .nature-form input {
+        border: 2px solid #4caf50;
+        background: #fafffa; /* 少し調整 */
+        color: #2e4d2c;
+        border-radius: 10px;
+    }
+    .nature-form .btn-primary {
+      background: linear-gradient(90deg, #4caf50 0%, #81c784 100%);
+      border: none;
+      font-weight: bold;
+      color: #fff;
+      border-radius: 20px;
+      box-shadow: 0 2px 8px #4caf50;
+      padding: 0.8em;
+      font-size: 1.1em;
+    }
+  </style>
+</head>
+<body>
+  <%- include('./../header'); %>
+
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-7">
+        <div class="nature-card">
+          <h2 class="text-center mb-4" style="color:#4caf50;">Update your profile</h2>
+          
+          <%- include('./../error_messages'); %>
+
+          <form action="/accounts/edit" method="post" class="nature-form">
+            <div class="form-group">
+              <label for="name">User Name</label>
+              <input type="text" id="name" name="name" class="form-control" value="<%= user.name %>" required>
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" class="form-control" value="<%= user.email %>" required>
+            </div>
+
+            <hr class="my-4">
+            <p class="text-muted small text-center">パスワードを変更する場合のみ入力してください</p>
+
+            <div class="form-group">
+              <label for="password">New Password</label>
+              <input type="password" id="password" name="password" class="form-control">
+            </div>
+
+            <div class="form-group">
+              <label for="password_confirmation">New Password (Confirmation)</label>
+              <input type="password" id="password_confirmation" name="password_confirmation" class="form-control">
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block mt-4">Save changes</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+</body>
+</html>

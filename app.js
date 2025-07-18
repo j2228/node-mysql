@@ -16,6 +16,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+console.log("app.js: Initializing routes and middleware");
 // authorization
 require("./config/passport")(app);
 
