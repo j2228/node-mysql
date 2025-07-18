@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const knex = require("../db/knex");
+const knex = require("../../db/knex");
 const bcrypt = require("bcrypt");
 
 router.get('/', function (req, res, next) {
   const isAuth = req.isAuthenticated();
-  res.render('signup', {
+  res.render('accounts/signup', {
     title: 'Sign up',
     isAuth: isAuth,
   });
@@ -22,7 +22,7 @@ router.post('/', function (req, res, next) {
     .select("*")
     .then(async function (result) {
       if (result.length !== 0) {
-        res.render("signup", {
+        res.render("accounts/signup", {
           title: "Sign up",
           errorMessage: ["このユーザ名は既に使われています"],
           isAuth: isAuth,

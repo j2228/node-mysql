@@ -56,11 +56,11 @@
   </style>
 </head>
 <body>
-<%- include('./header'); %>
-<%- include('./error_messages'); %>
+<%- include('./../header'); %>
+<%- include('./../error_messages'); %>
 <div class="container">
   <div class="nature-card">
-    <form class="nature-form" action="/signup" method="post">
+    <form class="nature-form" action="/accounts/signup" method="post">
       <label>ユーザ名</label>
       <input required type="text" name="username"/>
       <label>パスワード</label>
