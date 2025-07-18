@@ -197,4 +197,46 @@ router.post('/:id/unfollow', async (req, res, next) => {
   }
 });
 
+
+// --- ユーザー一覧ページ ---
+router.get('/', async (req, res, next) => {
+  const isAuth = req.isAuthenticated();
+  try {
+    const allUsers = await knex('users').select('*').orderBy('id', 'asc');
+    
+    res.render('users', {
+      title: 'All Users',
+      isAuth,
+      users: allUsers,
+      currentUser: req.user, // 管理者判定のためにログインユーザー情報を渡す
+    });
+  } catch(err) {
+    console.error(err);
+    next(err);
+  }
+});
+
+// --- ユーザー削除処理（管理者専用） ---
+router.post('/users/:id/delete', async (req, res, next) => {
+  // ログインしているか、かつ管理者かをチェック
+  if (!req.isAuthenticated() || !req.user.isAdmin) {
+    return res.status(403).send('Forbidden: Admins only');
+  }
+  
+  const userIdToDelete = req.params.id;
+
+  // 自分自身は削除できないようにする
+  if (req.user.id == userIdToDelete) {
+    return res.status(400).send('You cannot delete yourself.');
+  }
+
+  try {
+    await knex('users').where({ id: userIdToDelete }).del();
+    res.redirect('/users');
+  } catch(err) {
+    console.error(err);
+    next(err);
+  }
+});
+
 module.exports = router;
