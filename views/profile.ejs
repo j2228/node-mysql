@@ -34,7 +34,7 @@
       <div class="col-md-4">
         <div class="card mb-3 text-center p-3">
           <a href="/users/<%= user.id %>">
-            <img src="/images/default.png" class="rounded-circle mt-3" style="width:120px;height:120px;object-fit:cover;" alt="profile">
+            <img src="<%= user.image_url %>" class="rounded-circle mt-3" style="width:120px;height:120px;object-fit:cover;" alt="profile">
           </a>
           <h4 class="mt-2"><%= user.name %></h4>
           <a href="/users/<%= user.id %>" class="btn btn-link">view my profile</a>
@@ -57,7 +57,7 @@
             <div class="card mb-3">
               <div class="card-body d-flex">
                 <a href="/users/<%= user.id %>">
-                  <img src="/images/default.png" class="rounded-circle mr-3" style="width:60px;height:60px;object-fit:cover;" alt="profile">
+                  <img src="<%= user.image_url %>" class="rounded-circle mr-3" style="width:60px;height:60px;object-fit:cover;" alt="profile">
                 </a>
                 <div>
                   <a href="/users/<%= user.id %>" class="font-weight-bold"><%= user.name %></a>

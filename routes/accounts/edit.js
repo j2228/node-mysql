@@ -17,7 +17,7 @@ router.get('/', (req, res, next) => {
 
 // --- ユーザー情報更新処理 (POST) ---
 router.post('/', async (req, res, next) => {
-  const { name, email, password, password_confirmation } = req.body;
+  const { name, email, password, password_confirmation,image_url  } = req.body;
   const userId = req.user.id;
   const isAuth = req.isAuthenticated();
 
@@ -32,7 +32,7 @@ router.post('/', async (req, res, next) => {
   }
 
   try {
-    const updateData = { name, email };
+    const updateData = { name, email ,image_url };
 
     // パスワードが入力されている場合のみ、ハッシュ化して更新データに含める
     if (password) {
