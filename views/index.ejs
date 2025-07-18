@@ -78,8 +78,8 @@
         <!-- 左側 -->
         <div class="col-md-4">
           <div class="card mb-3 text-center">
-            <a href="/profile">
-              <img src="/images/default.png" class="rounded-circle mt-3" style="width:120px;height:120px;object-fit:cover;" alt="profile">
+            <a href="/users/<%= user.id %>">
+              <img src="<%= user.image_url %>" class="rounded-circle mr-3" style="width:60px;height:60px;object-fit:cover;" alt="profile">
             </a>
             <h4 class="mt-2"><%= user.name %></h4>
             <a href="/users/<%= user.id %>/" class="btn btn-link">view my profile</a>
@@ -104,22 +104,17 @@
         <div class="col-md-8">
           <h5>Micropost Feed</h5>
           <% posts.forEach(post => { %>
-            <div class="card mb-3">
+          <div class="card mb-3">
               <div class="card-body d-flex">
-                <a href="/<%= post.user_id %>">
-                  <img src="/images/default.png" class="rounded-circle mr-3" style="width:60px;height:60px;object-fit:cover;" alt="profile">
+                <a href="/users/<%= post.user_id %>">
+                  <img src="<%= post.userImageUrl %>" class="rounded-circle mr-3" style="width:60px;height:60px;object-fit:cover;" alt="profile">
                 </a>
                 <div>
-                  <a href="/users/<%= post.user_id %>" class="font-weight-bold"><%= post.name %></a>
+                  <a href="/users/<%= post.user_id %>" class="font-weight-bold"><%= post.userName %></a>
                   <p class="mb-1"><%= post.content %></p>
                   <small class="text-muted"><%= post.created_at ? post.created_at.toLocaleString() : '' %></small>
                 </div>
-                <% if(post.user_id === user.id){ %>
-                  <form action="/delete/<%= post.id %>" method="post" class="ml-auto">
-                    <button type="submit" class="btn btn-danger btn-sm">delete</button>
-                  </form>
-                <% } %>
-              </div>
+                </div>
             </div>
           <% }) %>
         </div>
@@ -145,3 +140,8 @@
             crossorigin="anonymous"></script>
   </body>
 </html>
+
+
+
+
+

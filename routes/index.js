@@ -11,12 +11,24 @@ router.get('/', async function (req, res, next) {
       // ユーザ情報取得
       const user = await knex('users').where({ id: userId }).first();
 
-      // 投稿一覧取得（全ユーザ分）
-      const posts = await knex('microposts')
-        .select('microposts.*', 'users.name')
-        .leftJoin('users', 'microposts.user_id', 'users.id')
-        .orderBy('microposts.created_at', 'desc');
+//       // 投稿一覧取得（全ユーザ分）
+//       const posts = await knex('microposts')
+//         .select('microposts.*', 'users.name')
+//         .leftJoin('users', 'microposts.user_id', 'users.id')
+//         .orderBy('microposts.created_at', 'desc');
+// // 修正前のクエリ（例）
+// // const posts = await knex('microposts').orderBy('created_at', 'desc');
 
+    // ▼▼▼ 修正後のクエリ ▼▼▼
+    const posts = await knex('microposts')
+      .select(
+        'microposts.*', // micropostsテーブルの全カラム
+        'users.name as userName',      // usersテーブルのnameをuserNameとして取得
+        'users.image_url as userImageUrl' // usersテーブルのimage_urlをuserImageUrlとして取得
+      )
+      .leftJoin('users', 'microposts.user_id', 'users.id') // usersテーブルを結合
+      .orderBy('microposts.created_at', 'desc');
+        
       // 投稿数
       const postCount = await knex('microposts').where({ user_id: userId }).count('id as cnt').first();
 

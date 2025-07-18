@@ -57,31 +57,32 @@
           
           <%- include('./../error_messages'); %>
 
-          <form action="/accounts/edit" method="post" class="nature-form">
-            <div class="form-group">
-              <label for="name">User Name</label>
-              <input type="text" id="name" name="name" class="form-control" value="<%= user.name %>" required>
-            </div>
+                <form action="/accounts/edit" method="post" class="nature-form">
 
-            <div class="form-group">
-              <label for="email">Email</label>
-              <input type="email" id="email" name="email" class="form-control" value="<%= user.email %>" required>
-            </div>
+                <div class="form-group text-center">
+                    <label>現在のプロフィール画像</label>
+                    <div class="mb-2">
+                    <img src="<%= user.image_url %>" alt="Current Profile Image" class="rounded-circle" width="120" height="120" style="object-fit: cover; border: 3px solid #fff; box-shadow: 0 2px 8px #4caf50;">
+                    </div>
+                </div>
 
-            <hr class="my-4">
-            <p class="text-muted small text-center">パスワードを変更する場合のみ入力してください</p>
+                <div class="form-group">
+                    <label for="image_url">画像URL</label>
+                    <input type="url" id="image_url" name="image_url" class="form-control" value="<%= user.image_url %>" placeholder="https://example.com/image.jpg">
+                </div>
+                <div class="form-group">
+                    <label for="name">User Name</label>
+                    <input type="text" id="name" name="name" class="form-control" value="<%= user.name %>" required>
+                </div>
 
-            <div class="form-group">
-              <label for="password">New Password</label>
-              <input type="password" id="password" name="password" class="form-control">
-            </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" class="form-control" value="<%= user.email %>" required>
+                </div>
 
-            <div class="form-group">
-              <label for="password_confirmation">New Password (Confirmation)</label>
-              <input type="password" id="password_confirmation" name="password_confirmation" class="form-control">
-            </div>
-
-            <button type="submit" class="btn btn-primary btn-block mt-4">Save changes</button>
+                <button type="submit" class="btn btn-primary btn-block mt-4">Save changes</button>
+                </form>
+            
           </form>
         </div>
       </div>
