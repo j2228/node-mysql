@@ -3,43 +3,115 @@
   <head>
     <title><%= title %></title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:700&display=swap" rel="stylesheet">
+    <style>
+      body {
+        background: linear-gradient(135deg, #e0ffe0 0%, #b3e6ff 100%);
+        font-family: 'Montserrat', 'Noto Sans JP', 'Meiryo', sans-serif;
+        color: #2e4d2c;
+        min-height: 100vh;
+        background-image: url('https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=1200&q=80');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+      }
+      .nature-card {
+        background: rgba(255,255,255,0.85);
+        border-radius: 18px;
+        box-shadow: 0 4px 24px #b3e6ff99;
+        padding: 2em 1.5em;
+        margin-bottom: 2em;
+        border: 2px solid #b3e6ff;
+      }
+      .nature-form label {
+        font-weight: bold;
+        color: #4caf50;
+      }
+      .nature-form input[type="text"] {
+        border: 2px solid #4caf50;
+        background: #e0ffe0;
+        color: #2e4d2c;
+        border-radius: 10px;
+      }
+      .nature-form .btn-primary {
+        background: linear-gradient(90deg, #4caf50 0%, #81c784 100%);
+        border: none;
+        font-weight: bold;
+        color: #fff;
+        border-radius: 20px;
+        box-shadow: 0 2px 8px #4caf50;
+      }
+      .nature-todo-list li {
+        background: #e0ffe0;
+        margin-bottom: 0.7em;
+        padding: 0.7em 1em;
+        border-radius: 16px;
+        font-size: 1.1em;
+        box-shadow: 0 2px 8px #b3e6ff;
+        border-left: 8px solid #4caf50;
+        color: #388e3c;
+        transition: transform 0.1s;
+        letter-spacing: 0.05em;
+      }
+      .nature-todo-list li:hover {
+        transform: scale(1.05) rotate(-2deg);
+        background: #b3e6ff;
+      }
+      .nature-signup-btn {
+        background: linear-gradient(90deg, #4caf50 0%, #81c784 100%);
+        border: none;
+        font-weight: bold;
+        color: #fff;
+        border-radius: 20px;
+        box-shadow: 0 2px 8px #4caf50;
+        padding: 0.7em 2em;
+        font-size: 1.2em;
+      }
+    </style>
   </head>
   <body>
     <%- include('./header'); %>
-<%- include('./error_messages'); %>
-<% if(isAuth) { %>
- <div class="container">
-  <div class="row">
-    <div class="col-md-6">
-      <form action="/" method="post">
-        <label>タスクの追加</label>
-        <input required type="text" name="add" placeholder="何をする?"/>
-        <!-- <input type="submit" value="追加"/> -->
-        <input class="btn btn-primary" type="submit" value="追加"/>
-
-      </form>
+    <%- include('./error_messages'); %>
+    <% if(isAuth) { %>
+    <div class="container mt-5">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="nature-card">
+            <form class="nature-form" action="/" method="post">
+              <label>自然の日記を追加</label>
+              <input required type="text" name="add" placeholder="今日見た自然は？" class="form-control mb-2"/>
+              <input class="btn btn-primary" type="submit" value="記録する"/>
+            </form>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="nature-card">
+            <ul class="nature-todo-list list-unstyled">
+              <% for(let todo of todos){ %>
+                <li><span>🌿 <%= todo.content %></span></li>
+              <% } %>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="col-md-6">
-      <ul>
-        <% for(let todo of todos){ %>
-          <li><span><%= todo.content %></span></li>
-        <% } %>
-      </ul>
-    </div>
-  </div>
-</div>
-<% } else { %>
-  <h1>Welcome to the <%= title %></h1>
-  <a class="btn btn-primary" href="/signup" role="button">Sign up now!</a>
-<% } %>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
-        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
-        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
-        crossorigin="anonymous"></script>
-</body>
+    <% } else { %>
+      <div class="container mt-5 text-center">
+        <div class="nature-card">
+          <h1 style="color:#4caf50;font-family:'Montserrat',sans-serif;">Welcome to the <%= title %></h1>
+          <p style="color:#388e3c;">自然の記録を始めましょう！</p>
+          <a class="btn nature-signup-btn btn-lg" href="/signup" role="button">新規登録</a>
+        </div>
+      </div>
+    <% } %>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+            integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+            integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+            crossorigin="anonymous"></script>
+  </body>
 </html>
