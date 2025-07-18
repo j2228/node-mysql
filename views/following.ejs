@@ -4,6 +4,7 @@
     <title><%= title %></title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:700&display=swap" rel="stylesheet">
+    
     <style>
       body {
         background: linear-gradient(135deg, #e0ffe0 0%, #b3e6ff 100%);
@@ -72,17 +73,16 @@
   <body>
     <%- include('./header'); %>
     <%- include('./error_messages'); %>
-    <% if(isAuth) { %>
+
     <div class="container mt-4">
       <div class="row">
-        <!-- 左側 -->
         <div class="col-md-4">
           <div class="card mb-3 text-center">
-            <a href="/profile">
+            <a href="/users/<%= user.id %>">
               <img src="/images/default.png" class="rounded-circle mt-3" style="width:120px;height:120px;object-fit:cover;" alt="profile">
             </a>
             <h4 class="mt-2"><%= user.name %></h4>
-            <a href="/users/<%= user.id %>/" class="btn btn-link">view my profile</a>
+            <a href="/users/<%= user.id %>" class="btn btn-link">view my profile</a>
             <ul class="list-group list-group-flush mt-3">
               <li class="list-group-item">合計投稿数: <%= postCount %></li>
               <li class="list-group-item">
@@ -93,47 +93,26 @@
               </li>
             </ul>
           </div>
-          <div class="card p-3">
-            <form action="/" method="post">
-              <textarea name="add" class="form-control mb-2" rows="3" placeholder="投稿内容を入力"></textarea>
-              <button type="submit" class="btn btn-primary btn-block">Post</button>
-            </form>
-          </div>
         </div>
-        <!-- 右側 -->
+        
         <div class="col-md-8">
-          <h5>Micropost Feed</h5>
-          <% posts.forEach(post => { %>
+          <h5>Following</h5>
+          <% followingUsers.forEach(followingUser => { %>
             <div class="card mb-3">
-              <div class="card-body d-flex">
-                <a href="/<%= post.user_id %>">
+              <div class="card-body d-flex align-items-center">
+                <a href="/users/<%= followingUser.id %>">
                   <img src="/images/default.png" class="rounded-circle mr-3" style="width:60px;height:60px;object-fit:cover;" alt="profile">
                 </a>
                 <div>
-                  <a href="/users/<%= post.user_id %>" class="font-weight-bold"><%= post.name %></a>
-                  <p class="mb-1"><%= post.content %></p>
-                  <small class="text-muted"><%= post.created_at ? post.created_at.toLocaleString() : '' %></small>
+                  <a href="/users/<%= followingUser.id %>" class="font-weight-bold"><%= followingUser.name %></a>
                 </div>
-                <% if(post.user_id === user.id){ %>
-                  <form action="/delete/<%= post.id %>" method="post" class="ml-auto">
-                    <button type="submit" class="btn btn-danger btn-sm">delete</button>
-                  </form>
-                <% } %>
               </div>
             </div>
           <% }) %>
         </div>
       </div>
     </div>
-    <% } else { %>
-      <div class="container mt-5 text-center">
-        <div class="nature-card">
-          <h1 style="color:#4caf50;font-family:'Montserrat',sans-serif;">Welcome to the <%= title %></h1>
-          <p style="color:#388e3c;">自然の記録を始めましょう！</p>
-          <a class="btn nature-signup-btn btn-lg" href="/accounts/signup" role="button">新規登録</a>
-        </div>
-      </div>
-    <% } %>
+
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
             crossorigin="anonymous"></script>

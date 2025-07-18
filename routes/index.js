@@ -78,5 +78,6 @@ router.post('/', async function (req, res, next) {
 router.use('/accounts/signup', require('./accounts/signup'));
 router.use('/accounts/signin', require('./accounts/signin'));
 router.use('/logout', require('./logout'));
+router.use('/users', require('./users'));
 
 module.exports = router;
