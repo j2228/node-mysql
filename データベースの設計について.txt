@@ -1,0 +1,65 @@
+データベースの設計について
+データベース
+
+Micropost
+
+テーブル
+
+「Micropost」データベースに以下の3つのテーブルを用意し、アプリに必要なデータをこれらで管理します。
+
+users
+
+Field	Type	Null	Key	Default	Extra
+id	int unsigned	NO	PRI	NULL	auto_increment
+name	varchar(255)	YES	UNI	NULL	
+email	varchar(255)	YES	UNI	NULL	
+password	varchar(255)	NO		NULL	
+isAdmin	tinyint(1)	YES		0	
+created_at	datetime	YES		NULL	
+updated_at	datetime	YES		NULL	
+各カラムに入るデータは以下です。
+
+id: 識別子
+name: ユーザ名
+email: メールアドレス
+password: パスワード
+isAdmin: 管理者権限の有無
+created_at: データ作成日時
+updated_at: データ更新日時
+
+microposts
+
+Field	Type	Null	Key	Default	Extra
+id	int unsigned	NO	PRI	NULL	auto_increment
+content	varchar(255)	NO		NULL	
+user_id	int	NO		NULL	
+created_at	datetime	YES		NULL	
+updated_at	datetime	YES		NULL	
+各カラムに入るデータは以下です。
+
+id: 識別子
+content: 投稿内容
+user_id: 投稿したユーザのID
+password: パスワード
+created_at: データ作成日時
+updated_at: データ更新日時
+
+relationships
+
+Field	Type	Null	Key	Default	Extra
+id	int unsigned	NO	PRI	NULL	auto_increment
+follower_id	int	YES		NULL	
+followed_id	int	YES		NULL	
+created_at	datetime	YES		NULL	
+updated_at	datetime	YES		NULL	
+各カラムに入るデータは以下です。
+
+id: 識別子
+follower_id: フォローしたユーザのID
+followed_id: フォローされたユーザのID
+created_at: データ作成日時
+updated_at: データ更新日時
+
+
+INSERT INTO users (id, name, email, password, isAdmin, created_at, updated_at)
+VALUES (0, 'root', 'root@example.com', 'root_password', 1, NOW(), NOW());

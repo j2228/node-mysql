@@ -73,25 +73,55 @@
     <%- include('./header'); %>
     <%- include('./error_messages'); %>
     <% if(isAuth) { %>
-    <div class="container mt-5">
+    <div class="container mt-4">
       <div class="row">
-        <div class="col-md-6">
-          <div class="nature-card">
-            <form class="nature-form" action="/" method="post">
-              <label>自然の日記を追加</label>
-              <input required type="text" name="add" placeholder="今日見た自然は？" class="form-control mb-2"/>
-              <input class="btn btn-primary" type="submit" value="記録する"/>
+        <!-- 左側 -->
+        <div class="col-md-4">
+          <div class="card mb-3 text-center">
+            <a href="/profile">
+              <img src="/images/default.png" class="rounded-circle mt-3" style="width:120px;height:120px;object-fit:cover;" alt="profile">
+            </a>
+            <h4 class="mt-2"><%= user.name %></h4>
+            <a href="/profile" class="btn btn-link">view my profile</a>
+            <ul class="list-group list-group-flush mt-3">
+              <li class="list-group-item">合計投稿数: <%= postCount %></li>
+              <li class="list-group-item">
+                合計フォロー: <a href="/following"><%= followingCount %></a>
+              </li>
+              <li class="list-group-item">
+                合計フォロワー: <a href="/followers"><%= followerCount %></a>
+              </li>
+            </ul>
+          </div>
+          <div class="card p-3">
+            <form action="/" method="post">
+              <textarea name="add" class="form-control mb-2" rows="3" placeholder="投稿内容を入力"></textarea>
+              <button type="submit" class="btn btn-primary btn-block">Post</button>
             </form>
           </div>
         </div>
-        <div class="col-md-6">
-          <div class="nature-card">
-            <ul class="nature-todo-list list-unstyled">
-              <% for(let todo of todos){ %>
-                <li><span>🌿 <%= todo.content %></span></li>
-              <% } %>
-            </ul>
-          </div>
+        <!-- 右側 -->
+        <div class="col-md-8">
+          <h5>Micropost Feed</h5>
+          <% posts.forEach(post => { %>
+            <div class="card mb-3">
+              <div class="card-body d-flex">
+                <a href="/profile/<%= post.user_id %>">
+                  <img src="/images/default.png" class="rounded-circle mr-3" style="width:60px;height:60px;object-fit:cover;" alt="profile">
+                </a>
+                <div>
+                  <a href="/profile/<%= post.user_id %>" class="font-weight-bold"><%= post.name %></a>
+                  <p class="mb-1"><%= post.content %></p>
+                  <small class="text-muted"><%= post.created_at ? post.created_at.toLocaleString() : '' %></small>
+                </div>
+                <% if(post.user_id === user.id){ %>
+                  <form action="/delete/<%= post.id %>" method="post" class="ml-auto">
+                    <button type="submit" class="btn btn-danger btn-sm">delete</button>
+                  </form>
+                <% } %>
+              </div>
+            </div>
+          <% }) %>
         </div>
       </div>
     </div>
