@@ -208,7 +208,7 @@ router.get('/', async (req, res, next) => {
       title: 'All Users',
       isAuth,
       users: allUsers,
-      currentUser: req.user, // 管理者判定のためにログインユーザー情報を渡す
+      user: req.user, // 管理者判定のためにログインユーザー情報を渡す
     });
   } catch(err) {
     console.error(err);
