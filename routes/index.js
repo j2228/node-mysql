@@ -11,7 +11,7 @@ router.get('/', function (req, res, next) {
       .where({user_id: userId})
       .then(function (results) {
         res.render('index', {
-          title: 'ToDo App',
+          title: 'blog',
           todos: results,
           isAuth: isAuth,
         });
@@ -19,14 +19,14 @@ router.get('/', function (req, res, next) {
       .catch(function (err) {
         console.error(err);
         res.render('index', {
-          title: 'ToDo App',
+          title: 'blog',
           isAuth: isAuth,
           errorMessage: [err.sqlMessage],
         });
       });
   } else {
     res.render('index', {
-      title: 'ToDo App',
+      title: 'blog',
       isAuth: isAuth,
     });
   }
@@ -44,7 +44,7 @@ router.post('/', function (req, res, next) {
     .catch(function (err) {
       console.error(err);
       res.render('index', {
-        title: 'ToDo App',
+        title: 'blog',
         isAuth: isAuth,
         errorMessage: [err.sqlMessage],
       });
